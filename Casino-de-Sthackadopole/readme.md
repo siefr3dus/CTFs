@@ -1,0 +1,1 @@
+This challenge was created by @shoxxdj for an edition of the [Sthack](https://www.sthack.fr/) from a few years ago. During our infosec lab, we were given the opportunity to try this challenge, as we were too young to have participated in the ctf where it was given. You can find my writeup here: 
