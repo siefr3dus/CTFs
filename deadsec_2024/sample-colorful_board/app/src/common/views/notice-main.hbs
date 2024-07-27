@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notices</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <style>
+        a {
+            color: black
+        }
+    </style>
+</head>
+
+
+<body>
+    <header>
+        <div class="container">
+            <h1>Colorful Board</h1>
+        </div>
+    </header>
+
+    <div class="container">
+        <h1>Notices</h1>
+
+        {{#each notices}}
+        <div class="notice">
+            <h2><a href="/admin/notice/{{_id}}">{{title}}</a></h2>
+        </div>
+        {{else}}
+        <p>No Notices</p>
+        {{/each}}
+    </div>
+    <script>
+        const logout = () => {
+            document.cookie = 'accessToken=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
+            location.reload();
+        }
+    </script>
+</body>
+
+</html>

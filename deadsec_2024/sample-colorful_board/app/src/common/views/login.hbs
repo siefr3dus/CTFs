@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+    <div class="container">
+        <h1>Login</h1>
+
+        <div id="loginForm">
+            <div class="form-group">
+                <label for="username">username</label>
+                <input type="text" id="username" name="username" required>
+            </div>
+            <div class="form-group">
+                <label for="password">password</label>
+                <input type="password" id="password" name="password" required>
+            </div>
+            <button type="submit" class="button primary">Login</button>
+        </div>
+
+        <p>Don't have an account? <a href="/auth/register">Register</a></p>
+    </div>
+</body>
+<script>
+    const submit = document.querySelector('button');
+    const username = document.querySelector("#username");
+    const password = document.querySelector("#password");
+
+    submit.addEventListener("click", () => {
+        fetch("/auth/login", {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ username: username.value, password: password.value })
+        })
+            .then(response => response.json())
+            .then(data => {
+                if (data.accessToken) {
+                    document.cookie = `accessToken=${data.accessToken}; path=/`;
+                    alert("Login Success")
+                    location.href = "/post";
+                } else {
+                    alert(data.message);
+                }
+            })
+    })
+</script>
+
+</html>

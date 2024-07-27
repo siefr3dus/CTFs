@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Posts</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <style>
+        a {
+            color: black
+        }
+    </style>
+</head>
+
+
+<body>
+    <header>
+        <div class="container">
+            <h1>Colorful Board</h1>
+            <div class="user-info">
+                {{#if user}}
+                <span class="username">{{user.username}}</span>
+                <a onclick="logout()" class="button">Logout</a>
+                {{/if}}
+            </div>
+        </div>
+    </header>
+
+    <div class="container">
+        <h1>Posts</h1>
+
+        {{#each posts}}
+        <div class="post">
+            <h2><a href="/post/{{_id}}">{{title}}</a></h2>
+        </div>
+        {{else}}
+        <p>No Posts</p>
+        {{/each}}
+
+        <a href="/post/write" class="button primary">Add New Post</a>
+    </div>
+    <script>
+        const logout = () => {
+            document.cookie = 'accessToken=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
+            location.reload();
+        }
+    </script>
+</body>
+
+</html>
