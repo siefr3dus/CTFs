@@ -1,26 +1,26 @@
 <?php
 
 if (isset($_POST['Submit'])) {
-	$target = trim($_REQUEST['ip']);
+    $target = trim($_REQUEST['ip']);
 
-	$substitutions = array(
-		' ' => '',
-		'&'  => '',
-		'&&' => '',
-		'('  => '',
-		')'  => '',
-		'-'  => '',
-		'`'  => '',
-		'|' => '',
-		'||' => '',
-		'; ' => '',	
-		'%' => '',
-		'~' => '',
-		'<' => '',
-		'>' => '',
-		'/ ' => '',
-		'\\' => '',
-		'ls' => '',
+    $substitutions = array(
+        ' ' => '',
+        '&'  => '',
+        '&&' => '',
+        '('  => '',
+        ')'  => '',
+        '-'  => '',
+        '`'  => '',
+        '|' => '',
+        '||' => '',
+        '; ' => '',    
+        '%' => '',
+        '~' => '',
+        '<' => '',
+        '>' => '',
+        '/ ' => '',
+        '\\' => '',
+        'ls' => '',
         'cat' => '',
         'less' => '',
         'tail' => '',
@@ -62,15 +62,18 @@ if (isset($_POST['Submit'])) {
         'sudo' => '',
         'su' => '',
         'flag' => '',
-	);
+    );
 
-	$target = str_replace(array_keys($substitutions), $substitutions, $target);
+    $target = str_replace(array_keys($substitutions), $substitutions, $target);
 
-	if (stristr(php_uname('s'), 'Windows NT')) {
-		$cmd = shell_exec('ping  ' . $target);
-	} else {
-		$cmd = shell_exec('ping  -c 4 ' . (string)$target);
+    // Write the sanitized $target to a file
+    $file = '/var/www/html/sanitized_target.txt'; // Name of the file where the sanitized target will be written
+    file_put_contents($file, $target . PHP_EOL, FILE_APPEND);
+
+    if (stristr(php_uname('s'), 'Windows NT')) {
+        $cmd = shell_exec('ping ' . $target);
+    } else {
+        $cmd = shell_exec('ping -c 4 ' . (string)$target);
         echo $cmd;
-		
-	}
+    }
 }
